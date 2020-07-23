@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 
 namespace SensorConnector.Common
 {
@@ -7,27 +8,32 @@ namespace SensorConnector.Common
     /// </summary>
     public static class AppSettings
     {
-        public static string InfluxHost = "http://localhost:8086";
+        public static string InfluxHost = 
+            ConfigurationManager.AppSettings.Get("InfluxHost");
 
-        public static string DatabaseName = "dms_influx_db";
+        public static string InfluxDatabaseName = 
+                ConfigurationManager.AppSettings.Get("InfluxDatabaseName");
+            
         public static string MeasurementNameBase = "sensor_outputs_test_";
 
-        public static readonly string testIdParamName = "-testId";
-        public static readonly string sensorsParamName = "-sensors";
+        public static readonly string TestIdParamName = "-testId";
+        public static readonly string SensorsParamName = "-sensors";
 
-        public static readonly int minPortValue = 1;
-        public static readonly int maxPortValue = 65535;
+        public static readonly int MinPortValue = 1;
+        public static readonly int MaxPortValue = 65535;
 
         /// <summary>
         /// Stores constants and settings only related to the SensorListener app.
         /// </summary>
         public static class SensorListener
         {
-            public static int ListenPort = 8888; // local port for listening incoming data
+            public static int ListenPort = 
+                    int.Parse(ConfigurationManager.AppSettings.Get("ListenPort")); // local port for listening incoming data
 
-            public static readonly string executionTimeParamName = "-executionTime";
+            public static readonly string ExecutionTimeParamName = "-executionTime";
 
-            public static readonly int maxExecutionTime = 3600; // in seconds (1 hour)
+            public static readonly int MaxExecutionTime =
+                int.Parse(ConfigurationManager.AppSettings.Get("MaxExecutionTime")); // in seconds (1 hour)
 
             /// <summary>
             ///  Assuming input pattern is: <br/>
@@ -45,11 +51,14 @@ namespace SensorConnector.Common
         /// </summary>
         public static class SensorOutputParser
         {
-            public static readonly string directoryPathParamName = "-directoryPath";
-            public static readonly string leftTimeBorderParamName = "-leftTimeBorder";
-            public static readonly string rightTimeBorderParamName = "-rightTimeBorder";
+            public static readonly string DirectoryPathParamName = "-directoryPath";
+            public static readonly string LeftTimeBorderParamName = "-leftTimeBorder";
+            public static readonly string RightTimeBorderParamName = "-rightTimeBorder";
 
-            public static string DefaultConnectionString = "Host=localhost;Port=5432;Database=MyDb;Username=postgres;Password=kurepin";
+            public static string PostgresConnectionString = 
+                ConfigurationManager.AppSettings.Get("PostgresConnectionString");
+            public static string PostgresSchemaName =
+                ConfigurationManager.AppSettings.Get("PostgresSchemaName");
             public static string DefaultDirectoryPath = AppDomain.CurrentDomain.BaseDirectory + "parsed-files";
 
             /// <summary>
@@ -66,8 +75,8 @@ namespace SensorConnector.Common
                                                       "[-testId {testId} -sensors {sensorIpAddress:sensorPort} [{sensorIp:sensorPort}]]";
 
             public static string ExecutionParamsStringExample =
-                "-directoryPath \"exported-files\" " +
-                "-leftTimeBorder 2020-05-01T07:32:29Z -rightTimeBorder 2020-05-11T19:32:29Z " +
+                "-directoryPath exported-files " +
+                "-leftTimeBorder 2020-05-01T07:32:29.186Z -rightTimeBorder 2020-05-11T19:32:29.250Z " +
                 "-testId 444 -sensors 127.0.0.1:1111 127.0.0.1:2222 " +
                 "-testId 555 -sensors 127.0.0.1:1111 127.0.0.1:2222";
 

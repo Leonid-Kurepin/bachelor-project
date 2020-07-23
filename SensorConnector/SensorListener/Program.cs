@@ -18,7 +18,7 @@ namespace SensorListener
     {
         private static ParsedInputParams _parsedInputParams;
 
-        private static InfluxClient _client;
+        private static InfluxClient _influxClient;
 
         private static string _measurementName;
 
@@ -32,10 +32,11 @@ namespace SensorListener
             {
                 #region Test
 
+                /*
                 // WARNING: Remove or comment out this part for production.
                 var testArgs = AppSettings.SensorListener.ExecutionParamsStringExample.Split(' ');
                 args = testArgs;
-
+                */
                 #endregion Test
 
                 _parsedInputParams = CommandLineArgsParser.CommandLineArgsParser.ParseInputParams(args);
@@ -50,11 +51,11 @@ namespace SensorListener
 
             _measurementName = AppSettings.MeasurementNameBase + _parsedInputParams.TestId;
 
-            _client = new InfluxClient(new Uri(AppSettings.InfluxHost));
+            _influxClient = new InfluxClient(new Uri(AppSettings.InfluxHost));
 
             // var databases = await _client.ShowDatabasesAsync();
 
-            await _client.CreateDatabaseAsync(AppSettings.DatabaseName); // Creates Influx database if not exist
+            await _influxClient.CreateDatabaseAsync(AppSettings.InfluxDatabaseName); // Creates Influx database if not exist
 
             InitTimer(_parsedInputParams.ProgramExecutionTime);
 
@@ -102,7 +103,7 @@ namespace SensorListener
                         WriteReceivedBatchToInfluxDbAsync(senderIpAddress, senderPort, dataAsStr)
                              .ContinueWith(t =>
                              {
-                                 Console.WriteLine($"Wrote broadcast from {remoteIp} to {AppSettings.DatabaseName}.{_measurementName}");
+                                 Console.WriteLine($"Wrote broadcast from {remoteIp} to {AppSettings.InfluxDatabaseName}.{_measurementName}");
 
                              });
                     }
@@ -135,7 +136,7 @@ namespace SensorListener
 
             // await Task.Delay(2000);
 
-            await _client.WriteAsync(AppSettings.DatabaseName, _measurementName, outputs);
+            await _influxClient.WriteAsync(AppSettings.InfluxDatabaseName, _measurementName, outputs);
         }
 
         /// <summary>

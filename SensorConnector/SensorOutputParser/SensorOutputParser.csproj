@@ -14,4 +14,8 @@
     <ProjectReference Include="..\SensorConnector.Persistence\SensorConnector.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+
 </Project>

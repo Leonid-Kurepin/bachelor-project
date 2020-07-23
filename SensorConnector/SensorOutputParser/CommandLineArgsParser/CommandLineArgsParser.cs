@@ -37,17 +37,17 @@ namespace SensorOutputParser.CommandLineArgsParser
                     $"Use the following pattern for the program executing: \r\n \'{InputParamsPattern}\'");
             }
 
-            _paramParserHelper.CheckParamPassed(inputParams, i, directoryPathParamName);
+            _paramParserHelper.CheckParamPassed(inputParams, i, DirectoryPathParamName);
 
             i++;
 
-            _paramParserHelper.CheckParamValuePassed(inputParams, i, directoryPathParamName);
+            _paramParserHelper.CheckParamValuePassed(inputParams, i, DirectoryPathParamName);
 
             ParsedInputParams.DirectoryPath = inputParams[i];
 
             i++;
 
-            _paramParserHelper.CheckParamPassed(inputParams, i, leftTimeBorderParamName);
+            _paramParserHelper.CheckParamPassed(inputParams, i, LeftTimeBorderParamName);
 
             i++;
 
@@ -55,18 +55,18 @@ namespace SensorOutputParser.CommandLineArgsParser
             {
                 throw new FormatException(
                     $"Provided value \'{inputParams[i]}\' is not a valid DateTime value.\r\n" +
-                    $"Provide time borders in ISO-8601 format. Example: 2020-05-10T07:32:29Z");
+                    $"Provide time borders in ISO 8601 format. Example: 2020-05-10T07:32:29.186Z");
             }
 
             ParsedInputParams.LeftTimeBorder = leftTimeBorder;
 
             i++;
 
-            _paramParserHelper.CheckParamPassed(inputParams, i, rightTimeBorderParamName);
+            _paramParserHelper.CheckParamPassed(inputParams, i, RightTimeBorderParamName);
 
             i++;
 
-            _paramParserHelper.CheckParamValuePassed(inputParams, i, rightTimeBorderParamName);
+            _paramParserHelper.CheckParamValuePassed(inputParams, i, RightTimeBorderParamName);
 
             if (!DateTime.TryParse(inputParams[i], out var rightTimeBorder))
             {
@@ -93,7 +93,7 @@ namespace SensorOutputParser.CommandLineArgsParser
             {
                 try
                 {
-                    _paramParserHelper.CheckParamPassed(inputParams, i, testIdParamName);
+                    _paramParserHelper.CheckParamPassed(inputParams, i, TestIdParamName);
                 }
                 catch (FormatException e)
                 {
@@ -104,12 +104,12 @@ namespace SensorOutputParser.CommandLineArgsParser
 
                     throw new FormatException(
                         "Expected either  \'{sensorIpAddress}:{sensorPort}\' sensor info or \r\n" +
-                        $"\'{testIdParamName}\' parameter, but found {inputParams[i]}");
+                        $"\'{TestIdParamName}\' parameter, but found {inputParams[i]}");
                 }
 
                 i++;
 
-                _paramParserHelper.CheckParamValuePassed(inputParams, i, testIdParamName);
+                _paramParserHelper.CheckParamValuePassed(inputParams, i, TestIdParamName);
 
                 if (!int.TryParse(inputParams[i], out var testId))
                 {
@@ -125,7 +125,7 @@ namespace SensorOutputParser.CommandLineArgsParser
 
                 i++;
 
-                _paramParserHelper.CheckParamPassed(inputParams, i, sensorsParamName);
+                _paramParserHelper.CheckParamPassed(inputParams, i, SensorsParamName);
 
                 i++;
 
@@ -135,7 +135,7 @@ namespace SensorOutputParser.CommandLineArgsParser
 
                     try
                     {
-                        _paramParserHelper.CheckParamValuePassed(inputParams, i, sensorsParamName);
+                        _paramParserHelper.CheckParamValuePassed(inputParams, i, SensorsParamName);
                     }
                     catch (FormatException e)
                     {

@@ -75,11 +75,11 @@ namespace SensorConnector.Common
 
             sensorPort = Math.Abs(sensorPort);
 
-            if (sensorPort < minPortValue || sensorPort > maxPortValue)
+            if (sensorPort < MinPortValue || sensorPort > MaxPortValue)
             {
                 throw new FormatException(
                     $"Provided value \'{sensorPort}\' for sensor port is not allowed. " +
-                    $"Allowed values are from {minPortValue} to {maxPortValue}");
+                    $"Allowed values are from {MinPortValue} to {MaxPortValue}");
             }
 
             return new Sensor(sensorIpAddress, sensorPort);

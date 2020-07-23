@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SensorConnector.Persistence.Entities;
+using static SensorConnector.Common.AppSettings.SensorOutputParser;
 
 namespace SensorConnector.Persistence.EntitiesConfigurations
 {
@@ -11,7 +12,7 @@ namespace SensorConnector.Persistence.EntitiesConfigurations
             builder.HasKey(e => e.CommunicationProtocolId)
                 .HasName("PK_CommunicationProtocols");
 
-            builder.ToTable("communication_protocols", "dms_v9");
+            builder.ToTable("communication_protocols", PostgresSchemaName);
 
             builder.Property(e => e.ProtocolName)
                 .IsRequired()

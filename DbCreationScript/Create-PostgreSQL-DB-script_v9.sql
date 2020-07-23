@@ -42,7 +42,7 @@ CREATE TABLE dms_v9.experiments
 (
  "ExperimentId" serial NOT NULL,
  "Metadata"     text NOT NULL,
- "CreatedAt"    time with time zone NOT NULL,
+ "CreatedAt"    timestamp with time zone NOT NULL,
 	
  CONSTRAINT "PK_Experiments" PRIMARY KEY ( "ExperimentId" )
 );
@@ -68,7 +68,6 @@ CREATE TABLE dms_v9.storage_files
  "StorageFileId" serial NOT NULL,
  "URI"           text NOT NULL,
  "Description"   text NOT NULL,
- "IsInput"       boolean NOT NULL,
 	
  CONSTRAINT "PK_StorageFiles" PRIMARY KEY ( "StorageFileId" )
 );
@@ -79,6 +78,7 @@ CREATE TABLE dms_v9.test_storage_files
  "TestStorageFileId" serial NOT NULL,
  "StorageFileId"     int NOT NULL,
  "TestId"            int NOT NULL,
+ "IsInput"       boolean NOT NULL,
 	
  CONSTRAINT "PK_TestStorageFiles" PRIMARY KEY ( "TestStorageFileId" ),
 	
@@ -93,8 +93,8 @@ CREATE TABLE dms_v9.processings
 (
  "ProcessingId" serial NOT NULL,
  "Metadata"            text NOT NULL,
- "StartTimeBorder"     time with time zone NOT NULL,
- "EndTimeBorder"       time with time zone NOT NULL,
+ "StartTimeBorder"     timestamp with time zone NOT NULL,
+ "EndTimeBorder"       timestamp with time zone NOT NULL,
 	
  CONSTRAINT "PK_Processings" PRIMARY KEY ( "ProcessingId" )
 );
@@ -137,7 +137,6 @@ CREATE TABLE dms_v9.processing_sensors
 CREATE TABLE dms_v9.processed_data
 (
  "ProcessedDataId"     serial NOT NULL,
- "Metadata"            text NOT NULL,
  "ProcessingId" int NOT NULL,
  "StorageFileId"       int NOT NULL,
 	
@@ -154,8 +153,8 @@ CREATE TABLE dms_v9.processed_data
 -- ************************************** experiment_sensors
 CREATE TABLE dms_v9.experiment_sensors
 (
- "ExperimentId"       serial NOT NULL,
- "ExperimentSensorId" int NOT NULL,
+ "ExperimentSensorId" serial NOT NULL,
+ "ExperimentId"       int NOT NULL,
  "SensorId"           int NOT NULL,
 	
  CONSTRAINT "PK_ExperimentSensors" PRIMARY KEY ( "ExperimentSensorId" ),

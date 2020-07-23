@@ -34,5 +34,10 @@ Examples of application executing:
 
     SensorListener -testId 132 -executionTime 20 -sensors 127.0.0.1:1111 127.0.0.1:2222 127.2.2.2:3333
 
-    SensorListener -testId 444 -executionTime 2000 -sensors 127.0.0.1:1111
+    SensorListener -testId 444 -executionTime 2000 -sensors 127.0.0.1:1111 127.0.0.1:2222
+
+        SensorListener -testId 444 -executionTime 5 -sensors 127.0.6666.1:1111 127.0.0.1:2222
+
+        SensorListener -testId 165 -executionTime 3000 -sensors 127.0.0.3:55555 
+
 

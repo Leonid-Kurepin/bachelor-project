@@ -34,11 +34,11 @@ namespace SensorListener.CommandLineArgsParser
                     $"Use the following pattern for the program executing: \r\n \'{InputParamsPattern}\'");
             }
 
-            _paramParserHelper.CheckParamPassed(inputParams, i, testIdParamName);
+            _paramParserHelper.CheckParamPassed(inputParams, i, TestIdParamName);
 
             i++;
 
-            _paramParserHelper.CheckParamValuePassed(inputParams, i, testIdParamName);
+            _paramParserHelper.CheckParamValuePassed(inputParams, i, TestIdParamName);
 
 
             if (!int.TryParse(inputParams[1], out var testId))
@@ -51,11 +51,11 @@ namespace SensorListener.CommandLineArgsParser
 
             i++;
 
-            _paramParserHelper.CheckParamPassed(inputParams, i, executionTimeParamName);
+            _paramParserHelper.CheckParamPassed(inputParams, i, ExecutionTimeParamName);
 
             i++;
 
-            _paramParserHelper.CheckParamValuePassed(inputParams, i, executionTimeParamName);
+            _paramParserHelper.CheckParamValuePassed(inputParams, i, ExecutionTimeParamName);
 
             if (!int.TryParse(inputParams[3], out var executionTime))
             {
@@ -65,24 +65,24 @@ namespace SensorListener.CommandLineArgsParser
 
             executionTime = Math.Abs(executionTime);
 
-            if (executionTime > maxExecutionTime)
+            if (executionTime > MaxExecutionTime)
             {
                 throw new FormatException(
-                    $"Provided value {executionTime}sec. for execution time is too large. " +
-                    $"Max allowed value is {maxExecutionTime}sec. (1 hour).");
+                    $"Provided value {executionTime} sec. for execution time is too large. " +
+                    $"Max allowed value is {MaxExecutionTime} sec.");
             }
 
             parsedInputParams.ProgramExecutionTime = executionTime;
 
             i++;
 
-            _paramParserHelper.CheckParamPassed(inputParams, i, sensorsParamName);
+            _paramParserHelper.CheckParamPassed(inputParams, i, SensorsParamName);
 
             i++;
 
             while (i < inputParams.Length)
             {
-                _paramParserHelper.CheckParamValuePassed(inputParams, i, sensorsParamName);
+                _paramParserHelper.CheckParamValuePassed(inputParams, i, SensorsParamName);
                 var parsedSensor = _paramParserHelper.ParseSensorFromInput(inputParams[i]);
 
                 parsedInputParams.Sensors.Add(parsedSensor);

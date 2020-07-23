@@ -17,24 +17,29 @@ namespace SensorOutputParser
     {
         private static ParsedInputParams _parsedInputParams;
 
-        private static InfluxClient _client;
+        private static InfluxClient _influxClient;
 
         static int Main(string[] args) => MainAsync(args).GetAwaiter().GetResult();
 
         static async Task<int> MainAsync(string[] args)
         {
-            _client = new InfluxClient(new Uri(InfluxHost));
+            _influxClient = new InfluxClient(new Uri(InfluxHost));
 
-            await _client.CreateDatabaseAsync(DatabaseName); // Creates Influx database if not exist
+            await _influxClient.CreateDatabaseAsync(InfluxDatabaseName); // Creates Influx database if not exist
 
             try
             {
                 #region Test
 
-                // WARNING: Remove or comment out this part for production.
-                var testArgs = ExecutionParamsStringExample.Split(' ');
-                args = testArgs;
+                var isDebug = false;
 
+                if (isDebug)
+                {
+                    // WARNING: Remove or comment out this part for production.
+                    var testArgs = ExecutionParamsStringExample.Split(' ');
+                    args = testArgs;
+                }
+              
                 #endregion Test
 
                 _parsedInputParams = ParseInputParams(args);
@@ -55,7 +60,7 @@ namespace SensorOutputParser
                     _parsedInputParams.RightTimeBorder,
                     testSensorsInfo.Sensors);
 
-                var resultSet = await _client.ReadAsync<SensorOutput>(DatabaseName, query);
+                var resultSet = await _influxClient.ReadAsync<SensorOutput>(InfluxDatabaseName, query);
 
                 var results = resultSet.Results[0];
                 var series = results.Series;
@@ -76,9 +81,16 @@ namespace SensorOutputParser
                 {
                     await ParseSensorsDatatypeAsync(testSensorsInfo.Sensors);
                 }
+                catch (Npgsql.PostgresException postgresException)
+                {
+                    Console.WriteLine("ERROR:" + postgresException.Message);
+                    return 1;
+                }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
+
+                    continue;
                 }
 
                 var outputsForExport = ParseRetrievedData(retrievedOutputs);
@@ -137,7 +149,7 @@ namespace SensorOutputParser
             Console.WriteLine(
                 "SUCCESS: Outputs for the specified parameters: \r\n" +
                 GetSearchConditionsString(leftTimeBorder, rightTimeBorder, testSensorsInfo) +
-                $"Were successfully written to file {fileName}"
+                $"Were successfully written to the file \'{fileName}\'"
                 );
         }
     }

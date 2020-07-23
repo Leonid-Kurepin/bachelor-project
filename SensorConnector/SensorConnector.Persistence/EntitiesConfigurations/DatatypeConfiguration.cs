@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SensorConnector.Common;
 using SensorConnector.Persistence.Entities;
+using static SensorConnector.Common.AppSettings.SensorOutputParser;
 
 namespace SensorConnector.Persistence.EntitiesConfigurations
 {
@@ -11,7 +13,7 @@ namespace SensorConnector.Persistence.EntitiesConfigurations
             builder.HasKey(e => e.DataTypeId)
                 .HasName("PK_Datatypes");
 
-            builder.ToTable("datatypes", "dms_v9");
+            builder.ToTable("datatypes", PostgresSchemaName);
 
             builder.Property(e => e.Metadata).IsRequired();
 

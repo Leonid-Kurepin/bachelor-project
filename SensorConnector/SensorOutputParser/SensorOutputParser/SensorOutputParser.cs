@@ -41,16 +41,39 @@ namespace SensorOutputParser.SensorOutputParser
                     continue;
                 }
 
-                await using var context = new DmsDbContext(AppSettings.SensorOutputParser.DefaultConnectionString);
+                await using var context = new DmsDbContext(AppSettings.SensorOutputParser.PostgresConnectionString);
 
-                var sensorWithDatatype = await context.Sensors
-                    .Include(x => x.DataType)
-                    .Include(x => x.CommunicationProtocol)
-                    .FirstOrDefaultAsync(x => x.IpAddress == sensor.IpAddress &&
-                                              x.Port == sensor.Port);
+                SensorConnector.Persistence.Entities.Sensor sensorWithDatatype = null;
+
+                try
+                {
+                    sensorWithDatatype = await context.Sensors
+                        .Include(x => x.DataType)
+                        .Include(x => x.CommunicationProtocol)
+                        .FirstOrDefaultAsync(x => x.IpAddress == sensor.IpAddress &&
+                                                  x.Port == sensor.Port);
+                }
+                catch (Npgsql.PostgresException e)
+                {
+                    var composedErrorMessage = $"Failed to connect to the Postgres database.\r\n";
+
+                    if (e.SqlState != null && e.SqlState.Equals("42P01"))
+                    {
+                        composedErrorMessage = composedErrorMessage + 
+                                               $"There is no schema with the specified \'{AppSettings.SensorOutputParser.PostgresSchemaName}\' name in database.";
+
+                        throw new Npgsql.PostgresException(composedErrorMessage, e.Severity, e.InvariantSeverity, e.SqlState);
+                    }
+
+                    composedErrorMessage = composedErrorMessage +
+                                           $"{e.Message}";
+
+                    throw new Npgsql.PostgresException(composedErrorMessage, e.Severity, e.InvariantSeverity, e.SqlState);
+                }
+
                 if (sensorWithDatatype == null)
                 {
-                    throw new NullReferenceException(($"Sensor {sensor.IpAddress}:{sensor.Port} not found in database."));
+                    throw new NullReferenceException(($"Sensor {sensor.IpAddress}:{sensor.Port} was not found in database."));
                 }
 
                 var parsedJson = JObject.Parse(sensorWithDatatype.DataType.Schema);
