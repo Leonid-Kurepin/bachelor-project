@@ -76,7 +76,7 @@ namespace SensorConnector.Common
 
             public static string ExecutionParamsStringExample =
                 "-directoryPath exported-files " +
-                "-leftTimeBorder 2020-05-01T07:32:29Z -rightTimeBorder 2020-05-11T19:32:29Z " +
+                "-leftTimeBorder 2020-05-01T07:32:29.186Z -rightTimeBorder 2020-05-11T19:32:29.250Z " +
                 "-testId 444 -sensors 127.0.0.1:1111 127.0.0.1:2222 " +
                 "-testId 555 -sensors 127.0.0.1:1111 127.0.0.1:2222";
 

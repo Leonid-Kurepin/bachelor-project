@@ -60,7 +60,7 @@ namespace SensorOutputParser.Exporting
             return Encoding.UTF8.GetBytes(customJson);
         }
 
-        protected string GetFileName(
+        private string GetFileName(
             int testId,
             DateTime leftTimeBorder,
             DateTime rightTimeBorder)

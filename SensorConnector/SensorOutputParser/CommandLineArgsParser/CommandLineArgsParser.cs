@@ -55,7 +55,7 @@ namespace SensorOutputParser.CommandLineArgsParser
             {
                 throw new FormatException(
                     $"Provided value \'{inputParams[i]}\' is not a valid DateTime value.\r\n" +
-                    $"Provide time borders in ISO-8601 format. Example: 2020-05-10T07:32:29Z");
+                    $"Provide time borders in ISO 8601 format. Example: 2020-05-10T07:32:29.186Z");
             }
 
             ParsedInputParams.LeftTimeBorder = leftTimeBorder;

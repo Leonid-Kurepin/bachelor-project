@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SensorListener.CommandLineArgsParser.CommandLineArgsParser">
+    <Position X="3.75" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CommandLineArgsParser\CommandLineArgsParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SensorListener.CommandLineArgsParser.ParsedInputParams">
+    <Position X="1" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAEAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>CommandLineArgsParser\ParsedInputParams.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SensorListener.Program">
+    <Position X="0.5" Y="1.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>IACAQAAAABAgAAAAAAAABAAAACAIBgAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SensorConnector.Common.CommonClasses.Sensor">
+    <Position X="11.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="SensorConnector.Common.Entities.SensorOutput">
+    <Position X="8.75" Y="4.25" Width="2" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="SensorConnector.Common.AppSettings">
+    <Position X="6" Y="1.25" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="SensorConnector.Common.AppSettings.SensorListener">
+        <TypeIdentifier />
+      </Class>
+      <Class Name="SensorConnector.Common.AppSettings.SensorOutputParser" Collapsed="true">
+        <TypeIdentifier />
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

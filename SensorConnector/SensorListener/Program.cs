@@ -18,7 +18,7 @@ namespace SensorListener
     {
         private static ParsedInputParams _parsedInputParams;
 
-        private static InfluxClient _client;
+        private static InfluxClient _influxClient;
 
         private static string _measurementName;
 
@@ -51,11 +51,11 @@ namespace SensorListener
 
             _measurementName = AppSettings.MeasurementNameBase + _parsedInputParams.TestId;
 
-            _client = new InfluxClient(new Uri(AppSettings.InfluxHost));
+            _influxClient = new InfluxClient(new Uri(AppSettings.InfluxHost));
 
             // var databases = await _client.ShowDatabasesAsync();
 
-            await _client.CreateDatabaseAsync(AppSettings.InfluxDatabaseName); // Creates Influx database if not exist
+            await _influxClient.CreateDatabaseAsync(AppSettings.InfluxDatabaseName); // Creates Influx database if not exist
 
             InitTimer(_parsedInputParams.ProgramExecutionTime);
 
@@ -136,7 +136,7 @@ namespace SensorListener
 
             // await Task.Delay(2000);
 
-            await _client.WriteAsync(AppSettings.InfluxDatabaseName, _measurementName, outputs);
+            await _influxClient.WriteAsync(AppSettings.InfluxDatabaseName, _measurementName, outputs);
         }
 
         /// <summary>

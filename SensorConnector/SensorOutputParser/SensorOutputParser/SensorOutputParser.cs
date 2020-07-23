@@ -73,7 +73,7 @@ namespace SensorOutputParser.SensorOutputParser
 
                 if (sensorWithDatatype == null)
                 {
-                    throw new NullReferenceException(($"Sensor {sensor.IpAddress}:{sensor.Port} not found in database."));
+                    throw new NullReferenceException(($"Sensor {sensor.IpAddress}:{sensor.Port} was not found in database."));
                 }
 
                 var parsedJson = JObject.Parse(sensorWithDatatype.DataType.Schema);

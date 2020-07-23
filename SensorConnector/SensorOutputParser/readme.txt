@@ -33,11 +33,14 @@ The pattern for the input params:
 
   	DateTime must be provided in ISO 8601 format.
 	
-	 	Example: 2020-05-10T07:32:29Z
+	 	Example: 2020-05-10T07:32:29.186Z
 
 Examples of application executing:
 
-	SensorOutputParser -directoryPath "exported-files" -leftTimeBorder 2020-05-05T07:32:29Z -rightTimeBorder 2020-05-11T19:32:29Z -testId 444 -sensors 127.0.0.1:1111 127.0.0.1:2222 -testId 555 -sensors 127.0.0.1:1111 127.0.0.1:2222
+	SensorOutputParser -directoryPath "exported-files" -leftTimeBorder 2020-05-05T07:32:29.186Z -rightTimeBorder 2020-05-11T19:32:29.251Z -testId 444 -sensors 127.0.0.1:1111 127.0.0.1:2222 -testId 555 -sensors 127.0.0.1:1111 127.0.0.1:2222
+
+	SensorOutputParser -directoryPath "exported-files" -leftTimeBorder 2020-05-05T07:32:29.186Z -rightTimeBorder 2020-05-11T19:32:29.251Z -testId 444 -sensors 127.0.0.1:1111 127.0.0.1:2222 -testId 666 -sensors 127.0.0.1:1111 127.0.0.1:2222
+
 
 	SensorOutputParser -directoryPath "C:\Users\kurepin\Desktop\path test" -leftTimeBorder 2020-05-05T07:32:29Z -rightTimeBorder 2020-05-11T19:32:29Z -testId 444 -sensors 127.0.0.1:
 
